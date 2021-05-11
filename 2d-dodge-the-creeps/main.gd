@@ -8,10 +8,17 @@ func _ready():
 	
 func new_game():
 	score = 0
+	$HUD.update_score(score)
+	$StartTimer.start()
+	$HUD.show_message("Get ready...")
+	yield($StartTimer, "timeout")
 	$ScoreTimer.start()
+	$MobTimer.start()
 	
 func game_over():
 	$ScoreTimer.stop()
+	$MobTimer.stop()
+	$HUD.show_game_over()
 	
 func _on_MobTimer_timeout():
 	var mob_spawn_location = $MobPath/MobSpwanPos
@@ -29,4 +36,5 @@ func _on_MobTimer_timeout():
 	mob.linear_velocity = vel.rotated(direction)
 
 func _on_ScoreTimer_timeout():
-	pass # Replace with function body.
+	score += 1
+	$HUD.update_score(score)
