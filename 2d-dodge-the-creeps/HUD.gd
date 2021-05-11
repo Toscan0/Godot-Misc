@@ -22,3 +22,10 @@ func _on_msgTimer_timeout():
 	
 func show_game_over():
 	show_message("Game Over")
+	yield($msgTimer, "timeout")
+	$MSGLabel.text = "Dodge the Creeps"
+	$MSGLabel.show()
+	yield(get_tree().create_timer(1.0), "timeout")
+	$Button.show()
+	
+	
