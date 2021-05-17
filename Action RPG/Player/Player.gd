@@ -14,9 +14,8 @@ func _physics_process(delta):
 	input_vector = input_vector.normalized()
 	
 	if input_vector != Vector2.ZERO:
-		vel += input_vector * acceleration * delta
-		vel = vel.clamped(max_speed * delta)
+		vel = vel.move_toward(input_vector * max_speed, acceleration * delta)
 	else:
 		vel = vel.move_toward(Vector2.ZERO, friction * delta)
 		
-	vel = move_and_slide(vel * sensitivity)
+	vel = move_and_slide(vel)
