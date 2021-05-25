@@ -21,11 +21,8 @@ onready var stats = $Stats
 onready var playerDetection = $PlayerDetectionZone
 onready var sprite = $AnimSprite
 onready var hurtbox = $Hurtbox
+onready var softColl = $SoftCollision
 
-func _ready():
-	print(stats.max_health)
-	print(stats.health)
-	
 func _on_Hurtbox_area_entered(area):
 	stats.health -= area.damage
 	knockback = area.knockback_vector * knockback_strengh
@@ -48,8 +45,10 @@ func _physics_process(delta):
 				vel = vel.move_toward(dir * max_speed, acceleration * delta)
 			else:
 				state = IDLE
+			sprite.flip_h = vel.x < 0
 	
-	sprite.flip_h = vel.x < 0
+	if softColl.is_colliding():
+		vel += softColl.get_push_vector() * delta * 400
 	vel = move_and_slide(vel)
 		
 func seek_player():
