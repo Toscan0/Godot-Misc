@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/Dado.gd" type="Script" id=1]
+
+[node name="Dado" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 20.0409
+margin_right = 77.0409
+margin_bottom = 14.0
+text = "Dado = X"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+margin_top = 20.6583
+margin_right = 98.0
+margin_bottom = 40.6583
+text = "Lance o Dado"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
